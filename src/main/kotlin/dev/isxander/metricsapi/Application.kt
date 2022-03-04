@@ -7,7 +7,6 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 
 fun Application.configurePlugins() {
-    configureRateLimit()
     configureRouting()
     configureSerialization()
     configureStatusPages()
