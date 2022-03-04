@@ -38,7 +38,7 @@ jobs:
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
           image: api/metrics-api
-          tag: ${{ steps.vars.outputs.sha_short }}
+          tags: ${{ steps.vars.outputs.sha_short }}
           dockerfile: Dockerfile
           registry: ghcr.io
           username: ${{ github.actor }}
