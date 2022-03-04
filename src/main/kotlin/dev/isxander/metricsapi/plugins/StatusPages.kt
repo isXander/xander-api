@@ -17,7 +17,7 @@ fun Application.configureStatusPages() {
             call.respond(HttpStatusCode.BadRequest, GenericSuccessResponse(false, "Invalid UUID: ${cause.invalidUUID}"))
         }
         exception<Throwable> { call, cause ->
-            call.respond(HttpStatusCode.InternalServerError, GenericSuccessResponse(false, cause.message ?: "Unknown error"))
+            call.respond(HttpStatusCode.InternalServerError, GenericSuccessResponse(false, cause.javaClass.simpleName + (cause.message ?: "Unknown error")))
         }
     }
 }
