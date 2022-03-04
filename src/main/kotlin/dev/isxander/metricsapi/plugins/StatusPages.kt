@@ -1,5 +1,6 @@
 package dev.isxander.metricsapi.plugins
 
+import com.mongodb.MongoException
 import dev.isxander.metricsapi.exception.InvalidUUIDException
 import dev.isxander.metricsapi.exception.UnknownMetricException
 import dev.isxander.metricsapi.response.GenericSuccessResponse
@@ -18,6 +19,9 @@ fun Application.configureStatusPages() {
         }
         exception<Throwable> { call, cause ->
             call.respond(HttpStatusCode.InternalServerError, GenericSuccessResponse(false, cause.javaClass.simpleName + (cause.message ?: "Unknown error")))
+        }
+        status(HttpStatusCode.NotFound) { call, status ->
+            call.respond(status, GenericSuccessResponse(false, "Endpoint not found."))
         }
     }
 }
