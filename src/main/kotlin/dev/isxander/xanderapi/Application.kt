@@ -7,10 +7,10 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 
 fun Application.configurePlugins() {
+    configureAuthorization()
     configureRouting()
     configureSerialization()
     configureStatusPages()
-    configureAuthorization()
 }
 
 fun main() {
