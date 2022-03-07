@@ -28,16 +28,16 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - name: Build metrics-api
+      - name: Build xander-api
         run: |
           chmod +x ./gradlew
           ./gradlew distTar
           mkdir actions
-          cp ./build/distributions/metrics-api-*.tar ./actions/metrics-api.tar
+          cp ./build/distributions/xander-api-*.tar ./actions/xander-api.tar
       - name: Build and push Docker images
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
-          image: api/metrics-api
+          image: api/xander-api
           tags: ${{ steps.vars.outputs.sha_short }}
           dockerfile: Dockerfile
           registry: ghcr.io

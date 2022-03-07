@@ -1,4 +1,4 @@
-package dev.isxander.metricsapi.backend.utils
+package dev.isxander.xanderapi.utils
 
 import io.ktor.client.*
 import io.ktor.client.engine.apache.*

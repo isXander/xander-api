@@ -1,4 +1,4 @@
-package dev.isxander.metricsapi.response
+package dev.isxander.xanderapi.response
 
 import kotlinx.serialization.Serializable
 

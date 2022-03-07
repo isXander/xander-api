@@ -1,4 +1,4 @@
-package dev.isxander.metricsapi.plugins
+package dev.isxander.xanderapi.plugins
 
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.plugins.*

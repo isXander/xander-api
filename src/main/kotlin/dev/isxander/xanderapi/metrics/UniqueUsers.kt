@@ -1,11 +1,11 @@
-package dev.isxander.metricsapi.backend.metric
+package dev.isxander.xanderapi.metrics
 
-import dev.isxander.metricsapi.backend.database
-import dev.isxander.metricsapi.backend.getApplicationCollection
-import dev.isxander.metricsapi.backend.utils.McUUID
-import dev.isxander.metricsapi.exception.InvalidUUIDException
-import dev.isxander.metricsapi.response.CountResponse
-import dev.isxander.metricsapi.response.GenericSuccessResponse
+import dev.isxander.xanderapi.metrics.Metric.Companion.database
+import dev.isxander.xanderapi.metrics.Metric.Companion.getApplicationCollection
+import dev.isxander.xanderapi.utils.McUUID
+import dev.isxander.xanderapi.exception.InvalidUUIDException
+import dev.isxander.xanderapi.response.CountResponse
+import dev.isxander.xanderapi.response.GenericSuccessResponse
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
@@ -17,7 +17,7 @@ import org.litote.kmongo.sample
 
 object UniqueUsers : Metric {
     override suspend fun handleGet(ctx: PipelineContext<Unit, ApplicationCall>, application: String) = with(ctx) {
-        call.respond(HttpStatusCode.OK, CountResponse(getUniqueUsers(application)))
+        call.respond(HttpStatusCode.OK, CountResponse(true, getUniqueUsers(application)))
     }
 
     override suspend fun handlePut(ctx: PipelineContext<Unit, ApplicationCall>, application: String) = with(ctx) {
