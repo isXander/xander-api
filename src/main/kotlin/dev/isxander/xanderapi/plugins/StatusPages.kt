@@ -9,14 +9,14 @@ import io.ktor.server.response.*
 
 fun Application.configureStatusPages() {
     install(StatusPages) {
+        exception<Throwable> { call, cause ->
+            call.respond(HttpStatusCode.InternalServerError, GenericSuccessResponse(false, cause.javaClass.simpleName + ": " + (cause.message ?: "Unknown error")))
+        }
         exception<BadRequestException> { call, cause ->
             call.respond(HttpStatusCode.BadRequest, GenericSuccessResponse(false, cause.message))
         }
         exception<AuthorizationException> { call, cause ->
             call.respond(HttpStatusCode.Unauthorized, GenericSuccessResponse(false, "Invalid login!"))
-        }
-        exception<Throwable> { call, cause ->
-            call.respond(HttpStatusCode.InternalServerError, GenericSuccessResponse(false, cause.javaClass.simpleName + (cause.message ?: "Unknown error")))
         }
         status(HttpStatusCode.NotFound) { call, status ->
             call.respond(status, GenericSuccessResponse(false, "Endpoint not found."))

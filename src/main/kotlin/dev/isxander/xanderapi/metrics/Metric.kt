@@ -8,8 +8,11 @@ import io.ktor.server.application.*
 import io.ktor.util.pipeline.*
 
 interface Metric {
-    suspend fun handleGet(ctx: PipelineContext<Unit, ApplicationCall>, application: String)
     suspend fun handlePut(ctx: PipelineContext<Unit, ApplicationCall>, application: String)
+    suspend fun handleInfo(ctx: PipelineContext<Unit, ApplicationCall>, application: String)
+
+    @Deprecated("Use info instead")
+    suspend fun handleGet(ctx: PipelineContext<Unit, ApplicationCall>, application: String)
 
     companion object {
         val database: MongoDatabase = mongoClient.getDatabase("metrics")
@@ -18,7 +21,8 @@ interface Metric {
             getButDontCreateCollection("$application.$collection")!!
 
         val metricTypes = mapOf<String, Metric>(
-            "unique_users" to UniqueUsers
+            "unique_users" to Users,
+            "users" to Users
         )
     }
 }
