@@ -32,8 +32,9 @@ object Users : Metric {
         when (infoType) {
             "unique" -> call.respond(HttpStatusCode.OK, CountResponse(true, getUniqueUsersInfo(application)))
             "login_count" -> {
-                val uuid = call.request.queryParameters["uuid"].orBadRequest("require uuid parameter")
-                val loginCount = getLoginCountInfo(application, McUUID(uuid)).orBadRequest("uuid not found")
+                val uuid = McUUID(call.request.queryParameters["uuid"].orBadRequest("require uuid parameter"))
+                if (!uuid.validate()) throw InvalidUUIDException(uuid.uuid)
+                val loginCount = getLoginCountInfo(application, uuid).orBadRequest("uuid not found")
                 call.respond(HttpStatusCode.OK, CountResponse(true, loginCount))
             }
         }
